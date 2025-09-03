@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+
+  kafka:
+    build: .
+    container_name: tournament-designer-kafka
+    networks: [internal_net]
+    ports:
+      - "9092:9092"       # para clientes fuera de Docker
+    environment:
+      # --- Config KRaft (Kafka sin ZooKeeper) en un solo nodo ---
+      - KAFKA_ENABLE_KRAFT=yes
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+
+      # Listeners (uno interno, uno externo y el de controller)
+      - KAFKA_CFG_LISTENERS=PLAINTEXT_INTERNAL://:29092,PLAINTEXT_EXTERNAL://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT_INTERNAL:PLAINTEXT,PLAINTEXT_EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT_INTERNAL
+
+      # Anuncia la URL/host que verán los clientes (fuera e inside Docker)
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT_INTERNAL://kafka:29092,PLAINTEXT_EXTERNAL://localhost:9092
+
+      # Otros mínimos útiles
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    volumes:
+      - kafka_data:/bitnami/kafka
+    # Si usas Linux y te falla por permisos, agrega:
+    # user: "1001:1001"
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: tournament-designer-kafka-ui
+    ports:
+      - "8080:8080"
+    networks: [internal_net]
+    depends_on: [kafka]
+    environment:
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:29092
+
+
+networks:
+  internal_net:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  kafka_data:

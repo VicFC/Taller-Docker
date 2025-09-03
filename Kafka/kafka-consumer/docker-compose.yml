@@ -1,0 +1,24 @@
+version: "3.9"
+
+services:
+
+  kafka-consumer:
+    build: .
+    container_name: kafka-consumer-job
+
+    environment:
+      - KAFKA_BROKERS=kafka:29092   # interno en la red Docker
+      - KAFKA_CLIENT_ID=consumer-job
+      - KAFKA_GROUP_ID=consumer-job-group
+      - KAFKA_TOPIC=tournaments
+      - KAFKA_FROM_BEGINNING=true
+    networks:
+      - internal_net
+    restart: unless-stopped
+
+networks:
+  internal_net:
+    driver: bridge
+
+volumes:
+  kafka_data:

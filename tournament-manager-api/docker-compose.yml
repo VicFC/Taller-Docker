@@ -11,6 +11,9 @@ services:
     environment:
       - PORT=3000
       - MONGO_URI=mongodb://mongo:27017/tournament_designer
+      - KAFKA_BROKERS=kafka:29092   
+      - KAFKA_TOPIC=tournaments     
+
     volumes:
       - .:/app
       - /app/node_modules

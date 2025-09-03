@@ -1,0 +1,54 @@
+<h1>Torneo 2025</h1>
+
+@if (loadedData.length > 0) {
+    @for (item of loadedData; track $index) {
+    <div class="brackets-container">
+        <app-stage-viewer [bracketsId]="'tournament-' + $index" [stageData]="item"></app-stage-viewer>
+    </div>
+    }
+    <br>
+
+    <div class="brackets-container">
+        <h1>Categorías sin participantes</h1>
+
+        <ul>
+            @for (item of emptyBrackets; track $index) {
+                <li>{{item.title}}</li>
+            }
+        </ul>
+    </div>
+
+    <div class="brackets-container">
+        <h1>Categorías con un solo participante</h1>
+
+        <ul>
+            @for (item of smallBrackets; track $index) {
+                <li><b>{{item.title}}: </b> {{item.roster[0].name}}</li>
+            }
+        </ul>
+    </div>
+
+    <div class="brackets-container">
+        <h1>Dojos</h1>
+
+        <ol>
+            @for (item of allDojos; track $index) {
+                <li>{{item}}</li>
+            }
+        </ol>
+    </div>
+    
+<!-- 
+    @for (item of katas; track $index) {
+        <h1>{{item.title}} ({{item.roster.length}}) </h1>
+        <ol>
+            @for (challenger of item.roster; track $index) {
+                <li>{{challenger.name}}</li>
+            }
+        </ol>
+    } -->
+
+}
+@else {
+    <p>No hay llaves disponibles...</p>
+}

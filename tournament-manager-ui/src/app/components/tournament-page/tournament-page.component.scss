@@ -1,0 +1,34 @@
+
+.brackets-container {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Fuerza un salto de página antes de este elemento */
+.page-break-before {
+  page-break-before: always;
+}
+
+/* Fuerza un salto de página después de este elemento */
+.page-break-after {
+  page-break-after: always;
+}
+
+/* Evita que un elemento se divida entre páginas */
+.page-break-avoid {
+  page-break-inside: avoid;
+}
+
+.opponents {
+  &:has(.bye) {
+    visibility: hidden;
+  }
+}
+
+div.match.connect-next {
+  &:has(.bye) {
+    &::after {
+      visibility: hidden;
+    }
+  }
+}

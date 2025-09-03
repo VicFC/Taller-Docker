@@ -1,0 +1,62 @@
+{
+	"info": {
+		"_postman_id": "9527392b-b1be-4503-a989-2c3b23183540",
+		"name": "Tournament",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11174984",
+		"_collection_link": "https://blue-flare-218999.postman.co/workspace/MES~4d31d695-5157-4674-8451-2ca110f0f2fb/collection/11174984-9527392b-b1be-4503-a989-2c3b23183540?action=share&source=collection_link&creator=11174984"
+	},
+	"item": [
+		{
+			"name": "Create Tournament",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n  {\n    \"title\": \"Senior Avanzados Hombres ✅\",\n    \"type\": \"single_elimination\",\n    \"roster\": [\n      {\n        \"id\": 93,\n        \"name\": \"93 - [Karate Patito] Juan Perez\",\n        \"weight\": 83,\n        \"age\": 45\n      },\n      {\n        \"id\": 94,\n        \"name\": \"94 - [Karate los pollitos] Pedro Picapiedra\",\n        \"weight\": 82,\n        \"age\": 44\n      }\n    ]\n  }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/upload-data",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"upload-data"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Fetch Tournaments",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/fetch-tournaments",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"fetch-tournaments"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

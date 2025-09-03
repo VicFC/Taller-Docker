@@ -1,5 +1,8 @@
 # Taller-Docker
 
+## Integrantes
+- Jeremmy Aguilar
+- Victor Fung
 
 ## Pasos para pruebas
 
